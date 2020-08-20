@@ -2,8 +2,19 @@
 
 *For Brandon Thomas*
 
+## Description
 
-## PowerShell Functions
+placeholder text
+
+## Usage
+
+placeholder text
+
+## Examples
+
+placeholder text
+
+## Functions
 
 **Login to Cisco FMC**
 
