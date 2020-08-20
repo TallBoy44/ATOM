@@ -38,6 +38,8 @@ placeholder text
 
 ## Subnet Interface Model
 
+Outlined below is an example SubInterface with all its properties. When running the PowerShell function(s), there should be a one-to-one match of properties between JSON and the PSObject.
+
 ```json
 {
     "type": "SubInterface",
