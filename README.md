@@ -10,6 +10,7 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 2. Functions
 3. Examples
 4. Sub-Interface Model
+5. Additional Information
 
 
 ## 1. Usage
@@ -158,3 +159,8 @@ Outlined below is an example SubInterface with all its properties. When running 
     }
 }
 ```
+
+## 5. Additional Information
+
+#### Cisco Api Explorer (Swagger UI)
+[Cisco FMC Api Explorer](https://172.16.9.59/api/api-explorer/)
