@@ -10,7 +10,8 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 2. Functions
 3. Examples
 4. Sub-Interface Model
-5. Additional Information
+5. Security Zone Model
+6. Additional Information
 
 ## 1. Usage
 
@@ -168,7 +169,51 @@ Outlined below is an example SubInterface with all its properties. When running 
 }
 ```
 
-## 5. Additional Information
+## 5. Security Zone Model
+
+``` json
+{
+    "name": "Test2",
+    "id": "Sec-zone-UUID-2",
+    "type": "SecurityZone",
+    "links": {
+        "self": "https://example.cisco.com/api/fmc_config/v1/domain/default/object/securityzones/Sec-zone-UUID-2",
+        "parent": "https://example.cisco.com/api/fmc_config/v1/domain/domainUUID/object/interfaceobjects/"
+    },
+    "metadata": {
+        "readOnly": {
+            "state": true
+        },
+        "timestamp": 1459973987,
+        "lastUser": {
+            "name": "admin",
+            "id": "User-UUID",
+            "type": "user"
+        },
+        "domain": {
+            "name": "Global",
+            "id": "domainUUID",
+            "type": "domain"
+        },
+        "parentType": "InterfaceObject"
+    },
+    "interfaceMode": "ASA",
+    "interfaces": [
+        {
+            "type": "FPPhysicalInterface",
+            "id": "Intf-UUID-3",
+            "name": "outside"
+        },
+        {
+            "type": "FPPhysicalInterface",
+            "id": "Intf-UUID-4",
+            "name": "inside"
+        }
+    ]
+}
+```
+
+## 6. Additional Information
 
 #### Cisco Api Explorer (Swagger UI)
 [Cisco FMC Api Explorer](https://172.16.9.59/api/api-explorer/)
