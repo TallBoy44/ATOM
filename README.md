@@ -91,12 +91,16 @@ This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Ref
 ``` Powershell
 ## LOGIN
 $TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd`
+
 ## GET DOMAIN
 $KC = Get-Domains -Token $TOKEN.Token | Where-Object -FilterScript { $_.name -eq 'Global/KC' }
+
 ## GET FIREWALL DEVICE
 $PRIMARY = Get-Devices -Token $TOKEN.Token -DomainUUID $KC.uuid | Where-Object -FilterScript { $_.name -eq 'KC-INT-FW-1' }
+
 ## GET SUB-INTERFACES
 $SUBS = Get-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id
+
 ## REMOVE SUB-INTERFACES
 Remove-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id -SubInterfaces $SUBS
 ```
