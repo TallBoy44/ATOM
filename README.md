@@ -90,7 +90,7 @@ This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Ref
 
 ``` Powershell
 ## LOGIN
-$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd`
+$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd"
 
 ## GET DOMAIN
 $KC = Get-Domains -Token $TOKEN.Token | Where-Object -FilterScript { $_.name -eq 'Global/KC' }
