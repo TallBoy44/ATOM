@@ -81,7 +81,7 @@ This command will remove all Sub-Interfaces that was returned from the `Get-SubI
 #### Login to Cisco FMC
 
 ``` Powershell
-$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd`
+$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd"
 ```
 
 This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Refresh). Both properties contain the string values of thier respective tokens.
