@@ -12,6 +12,8 @@ add-type @"
 "@
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 
+## ----- GENERAL -----
+
 ## FUNCTION: LOGIN TO FMC
 function Login-FMC {
     ## DEFINE PARAMETERS
@@ -153,6 +155,54 @@ function Get-Devices {
 
 }
 
+
+## ----- SUB INTERFACES -----
+
+## FUNCTION: COUNT NUMBER OF SUB-INTERFACES ON DEVICE
+function Count-SubInterfaces {
+## DEFINE PARAMETERS
+    param(
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [string]$DomainUUID,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [string]$DeviceUUID,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [string]$Token
+    )
+
+    BEGIN {
+        ## DEFINE HEADERS
+        $HEADERS = @{'x-auth-access-token' = "$($Token)"}
+
+        ## DEFINE URL
+        $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/devices/devicerecords/$($DeviceUUID)/subinterfaces"
+    }
+    
+    PROCESS {
+        ## ATTEMPT TO QUERY FMC API FOR SUBINTERFACE COUNT
+        try{
+            $RESPONSE = Invoke-WebRequest -Uri $URL -Method Get -Headers $HEADERS
+            $COUNT = ($RESPONSE.Content | ConvertFrom-Json).paging.count
+        }
+        catch{
+            Write-Warning "Unable to connect to FMC API Endpoint ($($URL))."
+            Write-Warning "Status Code: $($_.Exception.Response.StatusCode.Value__)"
+            Write-Warning "Error Message: $($_.Exception.Message)"
+            break
+        }
+    }
+
+    END {
+        ## RETURN COUNT
+        return $COUNT
+    }
+}
+
 ## FUNCTION: QUERY SUB-INTERFACES ON DEVICE
 function Get-SubInterfaces {
     ## DEFINE PARAMETERS
@@ -175,11 +225,33 @@ function Get-SubInterfaces {
         $HEADERS = @{'x-auth-access-token' = "$($Token)"}
 
         ## DEFINE URL
-        $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/devices/devicerecords/$($DeviceUUID)/subinterfaces?expanded=true"
+        $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/devices/devicerecords/$($DeviceUUID)/subinterfaces"
     }
     
     PROCESS {
-        ## ATTEMPT TO QUERY FMC API
+        ## ATTEMPT TO QUERY FMC API FOR SUBINTERFACE COUNT
+        try{
+            $COUNT = Count-SubInterfaces -DomainUUID $DomainUUID -DeviceUUID $DeviceUUID -Token $Token
+        }
+        catch{
+            Write-Warning "Unable to connect to FMC API Endpoint ($($URL))."
+            Write-Warning "Status Code: $($_.Exception.Response.StatusCode.Value__)"
+            Write-Warning "Error Message: $($_.Exception.Message)"
+            break
+        }
+
+        ## VERBOSE: OUTPUT COUNT OF SUBINTERFACES
+        Write-Verbose "SubInterfaces Found: $($COUNT)"
+
+        ## UPDATE URL TO HANDLE NUMBER OF OUTPUTS
+        if ($COUNT -le 1000){
+            $URL = $URL + "?limit=$($COUNT)&expanded=true"
+        } else {
+            Write-Warning "More than 100 SubInterfaces Found. Logic Needs to be Created for this."
+            break
+        }
+
+        ## ATTEMPT TO QUERY FMC API FOR SUB INTERFACES
         try{
             $RESPONSE = Invoke-WebRequest -Uri $URL -Method Get -Headers $HEADERS
         }
@@ -202,8 +274,9 @@ function Get-SubInterfaces {
 }
 
 ## FUNCTION: DELETE SUB-INTERFACES
-function Remove-SubInterface{
+function Remove-SubInterfaces {
     ## DEFINE PARAMETERS
+    [CmdletBinding(DefaultParameterSetName='SubInterfaceID')]
     param(
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
@@ -213,13 +286,128 @@ function Remove-SubInterface{
         [ValidateNotNullorEmpty()]
         [string]$DeviceUUID,
 
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
+        [Parameter(Mandatory=$true, ParameterSetName='SubInterfaceID')]
+        [ValidateNotNullorEmpty()] 
         [string]$SubInterfaceID,
+
+        [Parameter(Mandatory=$true, ParameterSetName='SubInterfaces')]
+        [ValidateNotNullorEmpty()] 
+        [array]$SubInterfaces = $null,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
         [string]$Token
     )
 
+    BEGIN {
+        ## DEFINE HEADERS
+        $HEADERS = @{'x-auth-access-token' = "$($Token)"}
+    }
+    
+    PROCESS {
+        ## DETERMINE SINGLE UUID vs. MULTIPLE
+        if($PSBoundParameters.ContainsKey('SubInterfaceID') -eq $true) {
+            ## CREATE URL TO REMOVE SINGLE SUBINTERFACE
+            $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/devices/devicerecords/$($DeviceUUID)/subinterfaces/$($SubInterfaceID)"
+            
+            ## VERBOSE: DELETING SUBINTERFACE
+            Write-Verbose "Attempting to Delete SubInterface ($($SubInterfaceID) ..."
+
+            ## ATTEMPT TO REMOVE SUBINTERFACE
+            try{
+                $RESPONSE = Invoke-WebRequest -Uri $URL -Method Delete -Headers $HEADERS
+            }
+            catch{
+                Write-Warning "Unable to connect to FMC API Endpoint ($($URL))."
+                Write-Warning "Status Code: $($_.Exception.Response.StatusCode.Value__)"
+                Write-Warning "Error Message: $($_.Exception.Message)"
+                break
+            }
+
+            ## VERBOSE: SUCCESSFUL SUBINTERFACE REMOVAL
+            Write-Verbose "Successfully Removed SubInterface ($($SubInterfaceID) !!!"
+        }
+
+        if($PSBoundParameters.ContainsKey('SubInterfaces') -eq $true){
+            ## LOOP THROUGH ALL SUBINTERFACES
+            ForEach ($SUB in $SubInterfaces){
+
+                ## CREATE URL TO REMOVE SINGLE SUBINTERFACE
+                $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/devices/devicerecords/$($DeviceUUID)/subinterfaces/$($SUB.id)"
+            
+                ## VERBOSE: DELETING SUBINTERFACE
+                Write-Verbose "Attempting to Delete SubInterface ($($SUB.id) ..."
+
+                ## ATTEMPT TO REMOVE SUBINTERFACE
+                try{
+                    $RESPONSE = Invoke-WebRequest -Uri $URL -Method Delete -Headers $HEADERS
+                }
+                catch{
+                    Write-Warning "Unable to connect to FMC API Endpoint ($($URL))."
+                    Write-Warning "Status Code: $($_.Exception.Response.StatusCode.Value__)"
+                    Write-Warning "Error Message: $($_.Exception.Message)"
+                    break
+                }
+
+                ## VERBOSE: SUCCESSFUL SUBINTERFACE REMOVAL
+                Write-Verbose "Successfully Removed SubInterface ($($SUB.id) !!!"
+
+            }
+        }
+    }
+
+    END {
+        ## RETURN SUCCESS MESSAGE
+        return "SubInterface(s) Removed Successfully!"
+    }
+
+}
+
+## FUNCTION: CREATE SUB-INTERFACES
+
+
+## ----- SECURITY ZONES -----
+
+## FUNCTION: GET ALL SECURITY ZONES
+function Get-SecurityZone {
+    
+    ## DEFINE PARAMETERS
+    param(
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [string]$DomainUUID,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [string]$Token
+    )
+
+    BEGIN {
+        ## DEFINE HEADERS
+        $HEADERS = @{'x-auth-access-token' = "$($Token)"}
+
+        ## DEFINE URL
+        $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/object/securityzones?expanded=true"
+    }
+    
+    PROCESS {
+        ## ATTEMPT TO QUERY FMC API
+        try{
+            $RESPONSE = Invoke-WebRequest -Uri $URL -Method Get -Headers $HEADERS
+        }
+        catch{
+            Write-Warning "Unable to connect to FMC API Endpoint ($($URL))."
+            Write-Warning "Status Code: $($_.Exception.Response.StatusCode.Value__)"
+            Write-Warning "Error Message: $($_.Exception.Message)"
+            break
+        } 
+    }
+
+    END {
+        ## CONVERT RESPONSE TO OBJECT
+        $RESULTS = ConvertFrom-Json $RESPONSE.Content
+
+        ## RETURN RESULTS
+        return $RESULTS.items | select * -ExcludeProperty links, metadata
+    }
 }
