@@ -39,7 +39,7 @@ This will return a Token PSObject contain both the Access & Refresh Tokens.
 #### List ALL Domains
 
 ``` Powershell
-Get-Domains -Token $TOKEN.Token`
+Get-Domains -Token $TOKEN.Token
 ```
 
 This will return a PSObject with All Avaiable Domains.
