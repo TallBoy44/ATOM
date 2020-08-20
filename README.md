@@ -12,7 +12,6 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 4. Sub-Interface Model
 5. Additional Information
 
-
 ## 1. Usage
 
 To run this module you have two approaches:
@@ -75,7 +74,16 @@ This command will remove the SINGLE Sub-Interface with the ID of '00B77110-8CE2-
 $SUBS = Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token
 Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaces $SUBS
 ```
+
 This command will remove all Sub-Interfaces that was returned from the `Get-SubInterfaces` command.
+
+#### List ALL Security Zones within Domain
+
+``` Powershell
+Get-SecurityZone -Token $TOKEN.Token -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"
+```
+
+This will return a PSObject with all the Security Zones contained within the specified Domain.
 
 ## 3. Examples
 
