@@ -7,8 +7,8 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 ## Table of Contents
 
 1. Usage
-2. Examples
-3. Functions
+2. Functions
+3. Examples
 4. Sub-Interface Model
 
 
@@ -26,51 +26,35 @@ View the raw content of `FMC.psm1` in this Repo. Copy the content to a blank **P
 
 The first step for every use requires you to login to the Cisco FMC. Utilize the `Login-FMC` command to generate the required Access/Refresh Tokens. After this initial command, the $TOKEN will be used with ALL other functions.
 
-## 2. Examples
+## 2. Functions
 
 #### Login to Cisco FMC
 
-`$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd`
-
-This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Refresh). Both properties contain the string values of thier respective tokens.
-
-#### List ALL Domains
-
-`Get-Domains -Token $TOKEN.Token`
-
-This will return a PSObject with All Avaiable Domains.
-
-#### List ALL Devices within Domain
-
-`Get-Devices -Token $TOKEN.Token -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"`
-
-This will return a PSObject with ALL Devices contained within the specified domain (KC).
-
-#### List ALL Sub-Interfaces within Device/Domain
-
-## 3. Functions
-
-#### Login to Cisco FMC
-
-`Login-FMC`
+``` Powershell
+Login-FMC -Username 'username' -Password 'FakePassword'
+```
 
 This will return a Token PSObject contain both the Access & Refresh Tokens.
 
 #### List ALL Domains
 
-`Get-Domains -Token $TOKEN.Token`
+``` Powershell
+Get-Domains -Token $TOKEN.Token`
+```
 
 This will return a PSObject with All Avaiable Domains.
 
 #### List ALL Devices within Domain
 
-`Get-Devices -Token $TOKEN.Token -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"`
-
-This will return a PSObject with ALL Devices contained within the specified domain (KC).
+``` Powershell
+Get-Devices -Token $TOKEN.Token -DomainUUID -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"
+```
 
 #### List ALL Sub-Interfaces within Device
 
-`Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token`
+``` Powershell
+Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token`
+```
 
 This will return a PSObject with ALL Sub-Interfaces on the Specified Device & Domain (KC-INT-1).
 
@@ -78,7 +62,9 @@ This will return a PSObject with ALL Sub-Interfaces on the Specified Device & Do
 
 ##### Remove SINGLE Sub-Interface
 
-`Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaceID "00B77110-8CE2-0ed3-0000-167503976712"`
+``` Powershell
+Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaceID "00B77110-8CE2-0ed3-0000-167503976712"`
+```
 
 This command will remove the SINGLE Sub-Interface with the ID of '00B77110-8CE2-0ed3-0000-167503976712'
 
@@ -89,6 +75,31 @@ $SUBS = Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -De
 Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaces $SUBS
 ```
 This command will remove all Sub-Interfaces that was returned from the `Get-SubInterfaces` command.
+
+## 3. Examples
+
+#### Login to Cisco FMC
+
+``` Powershell
+$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd`
+```
+
+This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Refresh). Both properties contain the string values of thier respective tokens.
+
+#### Find ALL Sub-Interfaces in KC and Remove
+
+``` Powershell
+## LOGIN
+$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd`
+## GET DOMAIN
+$KC = Get-Domains -Token $TOKEN.Token | Where-Object -FilterScript { $_.name -eq 'Global/KC' }
+## GET FIREWALL DEVICE
+$PRIMARY = Get-Devices -Token $TOKEN.Token -DomainUUID $KC.uuid | Where-Object -FilterScript { $_.name -eq 'KC-INT-FW-1' }
+## GET SUB-INTERFACES
+$SUBS = Get-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id
+## REMOVE SUB-INTERFACES
+Remove-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id -SubInterfaces $SUBS
+```
 
 ## 4. Sub-Interface Model
 
