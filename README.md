@@ -60,7 +60,7 @@ This will return a PSObject with ALL Sub-Interfaces on the Specified Device & Do
 
 #### Remove Sub-Interface from Device
 
-##### Remove SINGLE Sub-Interface
+##### SINGLE Sub-Interface
 
 ``` Powershell
 Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaceID "00B77110-8CE2-0ed3-0000-167503976712"`
@@ -68,7 +68,7 @@ Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceU
 
 This command will remove the SINGLE Sub-Interface with the ID of '00B77110-8CE2-0ed3-0000-167503976712'
 
-##### Remove MULTIPLE Sub-Interfaces
+##### MULTIPLE Sub-Interfaces
 
 ``` Powershell
 $SUBS = Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token
