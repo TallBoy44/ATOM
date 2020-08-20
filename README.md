@@ -2,6 +2,8 @@
 
 *For Brandon Thomas*
 
+> **WARNING**: There is a limit to the number of items returned by the Cisco FMC Rest API. By default, only **25** items will be returned. The JSON response will include a **Count** of all records. In order to recieve more results than the default add `?limit=xxx` to the end of any query. Additionally, the max limit that can be returned is **1000**. In furture, these functions will incorporate logic to handle greater than 1000 results.
+
 ## Description
 
 placeholder text
