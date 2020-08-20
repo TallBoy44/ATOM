@@ -176,27 +176,6 @@ Outlined below is an example SubInterface with all its properties. When running 
     "name": "Test2",
     "id": "Sec-zone-UUID-2",
     "type": "SecurityZone",
-    "links": {
-        "self": "https://example.cisco.com/api/fmc_config/v1/domain/default/object/securityzones/Sec-zone-UUID-2",
-        "parent": "https://example.cisco.com/api/fmc_config/v1/domain/domainUUID/object/interfaceobjects/"
-    },
-    "metadata": {
-        "readOnly": {
-            "state": true
-        },
-        "timestamp": 1459973987,
-        "lastUser": {
-            "name": "admin",
-            "id": "User-UUID",
-            "type": "user"
-        },
-        "domain": {
-            "name": "Global",
-            "id": "domainUUID",
-            "type": "domain"
-        },
-        "parentType": "InterfaceObject"
-    },
     "interfaceMode": "ASA",
     "interfaces": [
         {
