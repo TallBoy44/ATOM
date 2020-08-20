@@ -50,25 +50,45 @@ This will return a PSObject with ALL Devices contained within the specified doma
 
 ## 3. Functions
 
-**Login to Cisco FMC**
+#### Login to Cisco FMC
 
 `Login-FMC`
 
-**List Domains on FMC**
+This will return a Token PSObject contain both the Access & Refresh Tokens.
 
-`Get-Domains`
+#### List ALL Domains
 
-**List ALL Devices within Domain**
+`Get-Domains -Token $TOKEN.Token`
 
-`Get-Devices`
+This will return a PSObject with All Avaiable Domains.
 
-**List ALL SubInterfaces within Device**
+#### List ALL Devices within Domain
 
-`Get-SubInterfaces`
+`Get-Devices -Token $TOKEN.Token -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"`
 
-**Remove SubInterface from Device**
+This will return a PSObject with ALL Devices contained within the specified domain (KC).
 
-`Remove-SubInterfaces`
+#### List ALL Sub-Interfaces within Device
+
+`Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token`
+
+This will return a PSObject with ALL Sub-Interfaces on the Specified Device & Domain (KC-INT-1).
+
+#### Remove Sub-Interface from Device
+
+**Remove SINGLE Sub-Interface**
+
+`Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaceID "00B77110-8CE2-0ed3-0000-167503976712"`
+
+This command will remove the SINGLE Sub-Interface with the ID of '00B77110-8CE2-0ed3-0000-167503976712'
+
+**Remove MULTIPLE Sub-Interfaces**
+
+``` Powershell
+$SUBS = Get-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token
+Remove-SubInterfaces -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -Token $TOKEN.Token -SubInterfaces $SUBS
+```
+This command will remove all Sub-Interfaces that was returned from the `Get-SubInterfaces` command.
 
 ## 4. Sub-Interface Model
 
