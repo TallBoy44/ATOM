@@ -6,14 +6,14 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 
 ## Table of Contents
 
-1. Usage
-2. Functions
-3. Examples
-4. Sub-Interface Model
-5. Security Zone Model
-6. Additional Information
+1. [Usage](#usage)
+2. [Functions](#functions)
+3. [Examples](#examples)
+4. [Sub-Interface Model](#sub-model)
+5. [Security Zone Model](#security-model)
+6. [Additional Information](#add)
 
-## 1. Usage
+## 1. Usage (#usage)
 
 To run this module you have two approaches:
 
@@ -27,7 +27,7 @@ View the raw content of `FMC.psm1` in this Repo. Copy the content to a blank **P
 
 The first step for every use requires you to login to the Cisco FMC. Utilize the `Connect-FMC` command to generate the required Access/Refresh Tokens. After this initial command, the $TOKEN will be used with ALL other functions.
 
-## 2. Functions
+## 2. Functions (#functions)
 
 #### Login to Cisco FMC
 
@@ -86,7 +86,7 @@ Get-SecurityZone -Token $TOKEN.Token -DomainUUID "90551459-a1b7-5565-d6d9-000000
 
 This will return a PSObject with all the Security Zones contained within the specified Domain.
 
-## 3. Examples
+## 3. Examples (#examples)
 
 #### Login to Cisco FMC
 
@@ -163,7 +163,7 @@ $SUBS | FT -Property *
 $SUBS | OGV
 ```
 
-## 4. Sub-Interface Model
+## 4. Sub-Interface Model (#sub-model)
 
 Outlined below is an example SubInterface with all its properties. When running the PowerShell function(s), there should be a one-to-one match of properties between JSON and the PSObject.
 
@@ -217,7 +217,7 @@ Outlined below is an example SubInterface with all its properties. When running 
 }
 ```
 
-## 5. Security Zone Model
+## 5. Security Zone Model (#security-model)
 
 Outlined below is an example SecurityZone with all its properties. When running the PowerShell function(s), there should be a one-to-one match of properties between JSON and the PSObject.
 
@@ -242,7 +242,7 @@ Outlined below is an example SecurityZone with all its properties. When running 
 }
 ```
 
-## 6. Additional Information
+## 6. Additional Information (#add)
 
 #### Cisco Api Explorer (Swagger UI)
 [Cisco FMC Api Explorer](https://172.16.9.59/api/api-explorer/)
