@@ -25,14 +25,14 @@ Clone/Download the `FMC.psm1` file to your local machine. Open **PowerShell** an
 
 View the raw content of `FMC.psm1` in this Repo. Copy the content to a blank **PowerShell ISE** window, highlight all the text and press the `Run Selection` button (F8). The console window embedded within **PowerShell ISE** now has access to these functions.
 
-The first step for every use requires you to login to the Cisco FMC. Utilize the `Login-FMC` command to generate the required Access/Refresh Tokens. After this initial command, the $TOKEN will be used with ALL other functions.
+The first step for every use requires you to login to the Cisco FMC. Utilize the `Connect-FMC` command to generate the required Access/Refresh Tokens. After this initial command, the $TOKEN will be used with ALL other functions.
 
 ## 2. Functions
 
 #### Login to Cisco FMC
 
 ``` Powershell
-Login-FMC -Username 'username' -Password 'FakePassword'
+Connect-FMC -Username 'username' -Password 'FakePassword'
 ```
 
 This will return a Token PSObject contain both the Access & Refresh Tokens.
@@ -91,7 +91,7 @@ This will return a PSObject with all the Security Zones contained within the spe
 #### Login to Cisco FMC
 
 ``` Powershell
-$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd"
+$TOKEN = Connect-FMC -Username "api" -Password "FaKePaSsWoRd"
 ```
 
 This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Refresh). Both properties contain the string values of thier respective tokens.
@@ -100,7 +100,7 @@ This will return a Token PSObject with two properties ($TOKEN.Token & $TOKEN.Ref
 
 ``` Powershell
 ## LOGIN
-$TOKEN = Login-FMC -Username "api" -Password "FaKePaSsWoRd"
+$TOKEN = Connect-FMC -Username "api" -Password "FaKePaSsWoRd"
 
 ## GET DOMAIN
 $KC = Get-Domains -Token $TOKEN.Token | Where-Object -FilterScript { $_.name -eq 'Global/KC' }
