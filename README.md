@@ -6,14 +6,14 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 
 ## Table of Contents
 
-1. [Usage](#usage)
-2. [Functions](#functions)
+1. [Usage](#1.-usage)
+2. [Functions](#2.-functions)
 3. [Examples](#examples)
 4. [Sub-Interface Model](#sub-model)
 5. [Security Zone Model](#security-model)
 6. [Additional Information](#add)
 
-## [1. Usage](#usage)
+## 1. Usage
 
 To run this module you have two approaches:
 
@@ -27,7 +27,7 @@ View the raw content of `FMC.psm1` in this Repo. Copy the content to a blank **P
 
 The first step for every use requires you to login to the Cisco FMC. Utilize the `Connect-FMC` command to generate the required Access/Refresh Tokens. After this initial command, the $TOKEN will be used with ALL other functions.
 
-## [2. Functions](#functions)
+## 2. Functions
 
 #### Login to Cisco FMC
 
