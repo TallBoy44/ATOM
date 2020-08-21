@@ -15,7 +15,7 @@ add-type @"
 ## ----- GENERAL -----
 
 ## FUNCTION: LOGIN TO FMC
-function Login-FMC {
+function Connect-FMC {
     ## DEFINE PARAMETERS
     param(
         [Parameter(Mandatory=$false)]
