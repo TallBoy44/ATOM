@@ -165,6 +165,42 @@ $SUBS | FT -Property *
 $SUBS | OGV
 ```
 
+#### Obtain All Sub-Interfaces that belong to a specified Port-Channel
+
+``` Powershell
+## LOGIN, DETERMINE DOMAIN & DEVICE
+$TOKEN = Connect-FMC -Username "api" -Password "FaKePaSsWoRd"
+$KC = Get-Domains -Token $TOKEN.Token | Where-Object -FilterScript { $_.name -eq 'Global/KC' }
+$PRIMARY = Get-Devices -Token $TOKEN.Token -DomainUUID $KC.uuid | Where-Object -FilterScript { $_.name -eq 'KC-INT-FW-1' }
+
+## GET SUB-INTERFACES
+$SUBS = Get-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id
+
+## SELECT PORT-CHANNEL 3
+$PC3 = $SUBS | Where-Object -FilterScript { $_.name -eq 'Port-channel3' }
+
+## DISPLAY ALL PROPERTIES (CONSOLE)
+$PC3 | FT -Property *
+```
+
+#### Display ALL Properties of Sub-Interface
+
+``` Powershell
+## LOGIN, DETERMINE DOMAIN & DEVICE
+$TOKEN = Connect-FMC -Username "api" -Password "FaKePaSsWoRd"
+$KC = Get-Domains -Token $TOKEN.Token | Where-Object -FilterScript { $_.name -eq 'Global/KC' }
+$PRIMARY = Get-Devices -Token $TOKEN.Token -DomainUUID $KC.uuid | Where-Object -FilterScript { $_.name -eq 'KC-INT-FW-1' }
+
+## GET SUB-INTERFACES
+$SUBS = Get-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id
+
+## DISPLAY ALL PROPERTIES (CONSOLE)
+$SUBS | FT -Property *
+
+## DISPLAY ALL PROPERTIES (GUI WINDOW)
+$SUBS | OGV
+```
+
 ## 4. Sub-Interface Model
 
 Outlined below is an example SubInterface with all its properties. When running the PowerShell function(s), there should be a one-to-one match of properties between JSON and the PSObject.
