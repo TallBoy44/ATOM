@@ -6,12 +6,12 @@ This repository contains a PowerShell Module to help facilitate REST API calls t
 
 ## Table of Contents
 
-1. [Usage](#1.-usage)
-2. [Functions](#2.-functions)
-3. [Examples](#examples)
-4. [Sub-Interface Model](#sub-model)
-5. [Security Zone Model](#security-model)
-6. [Additional Information](#add)
+1. [Usage](#1-usage)
+2. [Functions](#2-functions)
+3. [Examples](#3-examples)
+4. [Sub-Interface Model](#4-sub-interface-model)
+5. [Security Zone Model](#5-security-zone-model)
+6. [Additional Information](#6-additional-information)
 
 ## 1. Usage
 
@@ -86,7 +86,7 @@ Get-SecurityZone -Token $TOKEN.Token -DomainUUID "90551459-a1b7-5565-d6d9-000000
 
 This will return a PSObject with all the Security Zones contained within the specified Domain.
 
-## [3. Examples](#examples)
+## 3. Examples
 
 #### Login to Cisco FMC
 
@@ -163,7 +163,7 @@ $SUBS | FT -Property *
 $SUBS | OGV
 ```
 
-## [4. Sub-Interface Model](#sub-model)
+## 4. Sub-Interface Model
 
 Outlined below is an example SubInterface with all its properties. When running the PowerShell function(s), there should be a one-to-one match of properties between JSON and the PSObject.
 
@@ -217,7 +217,7 @@ Outlined below is an example SubInterface with all its properties. When running 
 }
 ```
 
-## [5. Security Zone Model](#security-model)
+## 5. Security Zone Model
 
 Outlined below is an example SecurityZone with all its properties. When running the PowerShell function(s), there should be a one-to-one match of properties between JSON and the PSObject.
 
@@ -242,7 +242,7 @@ Outlined below is an example SecurityZone with all its properties. When running 
 }
 ```
 
-## [6. Additional Information](#add)
+## 6. Additional Information
 
 #### Cisco Api Explorer (Swagger UI)
 [Cisco FMC Api Explorer](https://172.16.9.59/api/api-explorer/)
