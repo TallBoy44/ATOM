@@ -142,7 +142,7 @@ $PRIMARY = Get-Devices -Token $TOKEN.Token -DomainUUID $KC.uuid | Where-Object -
 $SUBS = Get-SubInterfaces -Token $TOKEN.Token -DomainUUID $KC.uuid -DeviceUUID $PRIMARY.id
 
 ## EXPORT SUB-INTERFACES
-$SUBS | ConvertTo-Json | Out-File -FilePath "MyBackup.json"
+$SUBS | ConvertTo-Json -Depth 10 | Out-File -FilePath "MyBackup.json"
 ```
 
 #### Display ALL Properties of Sub-Interface
