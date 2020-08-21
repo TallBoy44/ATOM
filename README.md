@@ -19,7 +19,7 @@ To run this module you have two approaches:
 
 ### Approach 1
 
-Clone/Download the `FMC.psm1` file to your local machine. Open **PowerShell** and navigate to the directory that the file is contained within. Run `Import-Module .\FMC.psm1` to import the module on your Workstation/System.
+Clone/Download the `FMC.psm1` file to your local machine. Open **PowerShell** and navigate to the directory that the file is contained within. Run `Import-Module .\FMC.psm1` to import the module on your Workstation/System. **Note**: If you have an existing version of the Module, remove it with the following command `Remove-Module FMC`.
 
 ### Approach 2
 
