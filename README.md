@@ -132,6 +132,8 @@ $SUBS.Count
 
 #### Export (Backup) All Sub-Interfaces within Domain & Device
 
+Due to the default handling of JSON by PowerShell, `-Depth 10` needs to be added to the command to ensure all properties are outputed correctly. IPv4 is one of those properties that traverse several layers.
+
 ``` Powershell
 ## LOGIN, DETERMINE DOMAIN & DEVICE
 $TOKEN = Connect-FMC -Username "api" -Password "FaKePaSsWoRd"
