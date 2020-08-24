@@ -1,5 +1,22 @@
 # Cisco FMC PowerShell Module
 
+## Table of Contents
+
+* [Description](#description) 
+* [Release Information](#releases) 
+* [Usage](#usage)
+* [Functions](#functions)
+    * [Authentication](#authentication-functions)
+    * [General Functions](#general-functions)
+    * [Sub-Interface Functions](#sub-interface-functions)
+    * [Security Zone Functions](#security-zone-functions)
+* [Examples](#examples)
+* [Sub-Interface Model](#sub-interface-model)
+* [Security Zone Model](#security-zone-model)
+* [Additional Information](#additional-information)
+
+## Description
+
 This repository contains a PowerShell Module to help facilitate REST API calls to the Cisco FMC device. While there are many more REST API Endpoints avaiable, this module was designed in collaboration with the Networking Team to help fast track thier specific requests. 
 
 > **WARNING**: There is a limit to the number of items returned by the Cisco FMC Rest API. By default, only **25** items will be returned. The JSON response will include a **Count** of all records. Functions that are expected to return more than 25 responses have built in logic query all of the records. This will result in multiple API calls to the Cisco FMC Device, this is expected behavior. 
@@ -13,20 +30,6 @@ This module will allow you to;
 - List avaiable SecurityZones
 
 *Any Issues or Bugs found while using this PowerShell Module will be tracked within GitHub Issues. The Issues will be worked on and included in future releases.*
-
-## Table of Contents
-
-* [Release Information](#releases) 
-* [Usage](#usage)
-* [Functions](#functions)
-    * [Authentication](#authentication-functions)
-    * [General Functions](#general-functions)
-    * [Sub-Interface Functions](#sub-interface-functions)
-    * [Security Zone Functions](#security-zone-functions)
-* [Examples](#examples)
-* [Sub-Interface Model](#sub-interface-model)
-* [Security Zone Model](#security-zone-model)
-* [Additional Information](#additional-information)
 
 ## Releases
 
