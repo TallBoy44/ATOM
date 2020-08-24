@@ -132,7 +132,7 @@ This command will create new Sub-Interfaces on the device. It requires an input 
 New-SubInterface -FilePath .\subinterfaces.json -Token $TOKEN -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" 
 ```
 
-The above command will create a New Sub-Interface will the items specified in the JSON file.
+The above command will create a New Sub-Interface will the items specified in the JSON file. **This will exclude securityZone**
 
 ``` Powershell
 New-SubInterface -FilePath .\subinterfaces.json -Token $TOKEN -DomainUUID "90551459-a1b7-5565-d6d9-000000000002" -DeviceUUID "c940d356-6d05-11e9-8e34-9d7b4e2f05c2" -IncludeSecZone 
