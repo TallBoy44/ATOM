@@ -1,7 +1,5 @@
 # Cisco FMC PowerShell Module
 
-## Table of Contents
-
 * [Description](#description) 
 * [Release Information](#releases)
 * [Issues](#issues)
