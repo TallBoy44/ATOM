@@ -24,8 +24,6 @@ v1.0.1
     - Added Refresh Token
     - Updated 'New-SubInterface' to include SecurityZones
 
-
-
 #>
 
 ## ALLOW FOR SELF-SIGNED CERTIFICATE
@@ -525,7 +523,9 @@ function New-SubInterface {
         $URL = "https://172.16.9.59/api/fmc_config/v1/domain/$($DomainUUID)/devices/devicerecords/$($DeviceUUID)/subinterfaces"
 
         ## OBTAIN SECURITY ZONES
-        $ZONES = Get-SecurityZone -Token $Token -DomainUUID $DomainUUID
+        if ($IncludeSecZone){
+            $ZONES = Get-SecurityZone -Token $Token -DomainUUID $DomainUUID
+        }
     }
 
     PROCESS {
@@ -549,7 +549,7 @@ function New-SubInterface {
                     }
                 }
                 securityZone = @{
-                    id = 'placeholder'
+                    id = $SUB.securityZone.id
                 }
                 type = "SubInterface"
                 vlanId = $SUB.vlanId
