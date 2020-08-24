@@ -3,7 +3,8 @@
 ## Table of Contents
 
 * [Description](#description) 
-* [Release Information](#releases) 
+* [Release Information](#releases)
+* [Issues](#issues)
 * [Usage](#usage)
 * [Functions](#functions)
     * [Authentication](#authentication-functions)
@@ -33,14 +34,11 @@ This module will allow you to;
 
 ## Releases
 
-### Version 1.0.0
+Releases are handle by GitHub. Navigate to the [Releases Page](https://github.com/pkeech/Cisco_FMC/releases) to view the latest releases and thier respective changes notes. **Note**: Changes are also documented within the PowerShell module.
 
-    - Initial Release of Powershell Module
+## Issues
 
-### Version 1.0.1
-
-    - Added Refresh Token Functionality
-    - Updated 'New-SubInterface' to include SecurityZones
+If you encounter any issues while using this PowerShell Module, Please document them within the [Issues Page](https://github.com/pkeech/Cisco_FMC/issues). These issues will be worked on and included in future releases.
 
 ## Usage
 
