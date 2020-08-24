@@ -50,7 +50,7 @@ Clone/Download the `FMC.psm1` file to your local machine. Open **PowerShell** an
 
 ### Approach 2
 
-View the raw content of `FMC.psm1` in this Repo. Copy the content to a blank **PowerShell ISE** window, highlight all the text and press the `Run Selection` button (F8). The console window embedded within **PowerShell ISE** now has access to these functions.
+View the raw content of `FMC.psm1` in this Repo. Copy the content to a blank **PowerShell ISE** window, highlight all the text **with the exception of the last line `export-modulemember`** and press the `Run Selection` button (F8). The console window embedded within **PowerShell ISE** now has access to these functions.
 
 The first step for every use requires you to login to the Cisco FMC. Utilize the `Connect-FMC` command to generate the required Access/Refresh Tokens. After this initial command, the $TOKEN will be used with ALL other functions.
 
