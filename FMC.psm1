@@ -8,7 +8,7 @@
 ------------------------------
 
 Filename: FMC.psm1
-Version: 1.0.1
+Version: 1.0.2
 Author: Peter Keech (NexGen Data Systems, Inc.)
 Purpose: Configure Cisco FMC Device
 Requirements: N/a
@@ -23,7 +23,8 @@ v1.0.0
 v1.0.1
     - Added Refresh Token
     - Updated 'New-SubInterface' to include SecurityZones
-
+v1.0.2
+    - Corrected Typo with 'Remove-SubInterface'
 #>
 
 ## ALLOW FOR SELF-SIGNED CERTIFICATE
