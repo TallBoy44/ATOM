@@ -92,7 +92,7 @@ This will return a PSObject with All Avaiable Domains.
 #### List ALL Devices within Domain
 
 ``` Powershell
-Get-Devices -Token $TOKEN -DomainUUID -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"
+Get-Devices -Token $TOKEN -DomainUUID "90551459-a1b7-5565-d6d9-000000000002"
 ```
 
 ### Sub-Interface Functions
