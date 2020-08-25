@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "8853a74f-ab4a-403e-8b4b-a3b0ad5e3764",
+		"name": "Cisco FMC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate Token [Login]",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "api",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://172.16.9.59/api/fmc_platform/v1/auth/generatetoken",
+					"protocol": "https",
+					"host": [
+						"172",
+						"16",
+						"9",
+						"59"
+					],
+					"path": [
+						"api",
+						"fmc_platform",
+						"v1",
+						"auth",
+						"generatetoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-access-token",
+						"value": "c649ae74-0f1d-49f6-ad13-9e68fd144a0d",
+						"type": "text"
+					},
+					{
+						"key": "x-auth-refresh-token",
+						"value": "1c635292-a1e1-48c3-82fa-6caa6f45f992",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://172.16.9.59/api/fmc_platform/v1/auth/refreshtoken",
+					"protocol": "https",
+					"host": [
+						"172",
+						"16",
+						"9",
+						"59"
+					],
+					"path": [
+						"api",
+						"fmc_platform",
+						"v1",
+						"auth",
+						"refreshtoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List ALL Domains",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-access-token",
+						"value": "b3d42ecc-4a4a-4d4f-a9d2-b4bc0b555fc4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://172.16.9.59/api/fmc_platform/v1/info/domain",
+					"protocol": "https",
+					"host": [
+						"172",
+						"16",
+						"9",
+						"59"
+					],
+					"path": [
+						"api",
+						"fmc_platform",
+						"v1",
+						"info",
+						"domain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List KC Devices",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-access-token",
+						"value": "b3d42ecc-4a4a-4d4f-a9d2-b4bc0b555fc4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://172.16.9.59/api/fmc_config/v1/domain/90551459-a1b7-5565-d6d9-000000000002/devices/devicerecords",
+					"protocol": "https",
+					"host": [
+						"172",
+						"16",
+						"9",
+						"59"
+					],
+					"path": [
+						"api",
+						"fmc_config",
+						"v1",
+						"domain",
+						"90551459-a1b7-5565-d6d9-000000000002",
+						"devices",
+						"devicerecords"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List KC SubInterfaces (First 25)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-access-token",
+						"value": "e30919cd-aeae-4144-b2f7-e8d37663578d",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://172.16.9.59/api/fmc_config/v1/domain/90551459-a1b7-5565-d6d9-000000000002/devices/devicerecords/c940d356-6d05-11e9-8e34-9d7b4e2f05c2/subinterfaces?expanded=true",
+					"protocol": "https",
+					"host": [
+						"172",
+						"16",
+						"9",
+						"59"
+					],
+					"path": [
+						"api",
+						"fmc_config",
+						"v1",
+						"domain",
+						"90551459-a1b7-5565-d6d9-000000000002",
+						"devices",
+						"devicerecords",
+						"c940d356-6d05-11e9-8e34-9d7b4e2f05c2",
+						"subinterfaces"
+					],
+					"query": [
+						{
+							"key": "expanded",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "900",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sub-Interface",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-access-token",
+						"value": "c649ae74-0f1d-49f6-ad13-9e68fd144a0d",
+						"type": "text"
+					},
+					{
+						"key": "x-auth-refresh-token",
+						"value": "1c635292-a1e1-48c3-82fa-6caa6f45f992",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vlanId\":  22,\r\n    \"ipv4\":  {\r\n                 \"static\":  {\r\n                                \"netmask\":  \"255.255.255.248\",\r\n                                \"address\":  \"10.1.1.49\"\r\n                            }\r\n             },\r\n    \"type\":  \"SubInterface\",\r\n    \"subIntfId\":  22,\r\n    \"MTU\":  1500,\r\n    \"ifname\":  \"SFTP\",\r\n    \"name\":  \"Port-channel4\",\r\n    \"securityZone\":  \"Port-channel4\",\r\n    \"managementOnly\":  false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://172.16.9.59/api/fmc_config/v1/domain/90551459-a1b7-5565-d6d9-000000000002/devices/devicerecords/c940d356-6d05-11e9-8e34-9d7b4e2f05c2/subinterfaces",
+					"protocol": "https",
+					"host": [
+						"172",
+						"16",
+						"9",
+						"59"
+					],
+					"path": [
+						"api",
+						"fmc_config",
+						"v1",
+						"domain",
+						"90551459-a1b7-5565-d6d9-000000000002",
+						"devices",
+						"devicerecords",
+						"c940d356-6d05-11e9-8e34-9d7b4e2f05c2",
+						"subinterfaces"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

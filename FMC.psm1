@@ -372,7 +372,7 @@ function Get-SubInterfaces {
 }
 
 ## FUNCTION: DELETE SUB-INTERFACES
-function Remove-SubInterfaces {
+function Remove-SubInterface {
     ## DEFINE PARAMETERS
     [CmdletBinding(DefaultParameterSetName='SubInterfaceID')]
     param(
